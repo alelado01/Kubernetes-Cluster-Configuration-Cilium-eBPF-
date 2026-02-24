@@ -554,6 +554,7 @@ sudo k3s ctr -n k8s.io images list | grep vxlan-xdp-dev
 ---
 
 #### Step 2 — Helm values file
+>  The values file below is an **example** based on the cluster configuration used in this project. Adapt `k8sServiceHost`, IP ranges, interface names, and image tags to match your own environment before deploying.
 
 Save the following as `cilium-values.yaml`. The `vxlanAcceleration` block is the key addition from Killian's patch; the rest mirrors the cluster's standard network configuration.
 
