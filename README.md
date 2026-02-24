@@ -450,7 +450,7 @@ set -euo pipefail
 # ── Configuration ────────────────────────────────────────────────────────────
 MASTER_IP="134.59.131.204"   # management IP of the master node
 WORKER_IP="134.59.131.202"   # management IP of the worker node
-SSH_USER="<your-ssh-user>"   # SSH username on both nodes (e.g. sdnuser)
+SSH_USER="<your-ssh-user>"   # SSH username on both nodes
 IMAGE_TAG="vxlan-xdp-dev"
 CILIUM_IMAGE="quay.io/cilium/cilium:${IMAGE_TAG}"
 OPERATOR_IMAGE="quay.io/cilium/operator-generic:${IMAGE_TAG}"
