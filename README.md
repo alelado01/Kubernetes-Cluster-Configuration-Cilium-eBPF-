@@ -13,7 +13,6 @@ This document analyzes the full installation procedure used in the TER project: 
 | master | master | eth0 (Intel X710)| 10.4.100.1/8   | em2      | 134.59.131.204    |
 | worker | worker | eth1 (Intel X710)| 10.2.100.1/8   | em2      | 134.59.131.202    |
 
-> **Warning:** The master server also has a second Intel port (`eth1`) that is **not connected**. Including it in any `--devices` parameter causes crashes. Always limit device selection to the connected interface only.
 
 Verify physical connectivity before starting:
 ```bash
