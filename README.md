@@ -25,23 +25,7 @@ ip neigh show 10.2.100.1 dev eth0
 
 ---
 
-#### 2. Interface Preparation
-
-On **worker**, the Intel 10G interface may appear as `eth1` depending on the udev persistent naming rules. All commands in this guide use `eth0` for worker after the rename below.
-
-```bash
-# On worker — rename the data interface to eth0 for consistency
-sudo ip link set eth1 down
-sudo ip link set eth1 name eth0
-sudo ip addr add 10.2.100.1/8 dev eth0
-sudo ip link set eth0 up
-```
-
-> **Note:** After `sudo modprobe -r i40e && sudo modprobe i40e` (driver reload), all Intel interfaces lose their IP configuration and may revert to their kernel-assigned names. After any driver reload, repeat the above block and re-add the IP.
-
----
-
-#### 3. Hardware Hardening (LRO/GRO)
+#### 2. Hardware Hardening (LRO/GRO)
 
 **Before** starting any CNI, disable hardware offloading on both nodes. Failure to do this before Cilium attaches XDP causes a hard kernel lockup (see [Error E2](#errors-and-solutions)).
 
@@ -50,11 +34,11 @@ sudo ip link set eth0 up
 sudo ethtool -K eth0 lro off gro off
 ```
 
-> **Critical:** Never run `ethtool` flags that modify hardware state (queue count, offloads, ring buffer) **while Cilium is running**. Doing so forces a driver reset that removes all attached BPF programs, potentially causing a crash loop.
+> Never run `ethtool` flags that modify hardware state (queue count, offloads, ring buffer) **while Cilium is running**. Doing so forces a driver reset that removes all attached BPF programs, potentially causing a crash loop.
 
 ---
 
-#### 4. Full Node Reset / CNI Rotation
+#### 3. Full Node Reset / CNI Rotation
 
 When switching from one CNI to another, a full cleanup is required on every node. Leftover CNI configuration files, virtual interfaces, and BPF state from the old CNI will corrupt the new installation.
 
@@ -94,7 +78,7 @@ sudo tc qdisc del dev eth0 clsact       2>/dev/null || true
 
 ---
 
-#### 5. K3s Installation
+#### 4. K3s Installation
 
 ##### Master node
 
@@ -126,7 +110,7 @@ After installation, `kubectl get nodes` will show all nodes in `NotReady` — th
 
 ---
 
-#### 6. CNI Installation
+#### 5. CNI Installation
 
 ##### Flannel
 
@@ -257,7 +241,7 @@ kubectl delete pod -n kube-system -l k8s-app=cilium
 
 ---
 
-#### 7. Errors and Solutions
+#### 6. Errors and Solutions
 
 The following errors were encountered during the deployment of this cluster. Each entry includes the symptom, root cause, and working fix.
 
@@ -729,3 +713,4 @@ ip -d link show cilium_vxlan | grep mtu   # must show 1400
 **operator image not overridden — operator pulls upstream**
 - **Cause:** Forgetting to set `operator.image.override` in the values file causes the operator pod to use the upstream `cilium/operator-generic:v1.x.x` image, which does not include Killian's patches and may be incompatible with the modified agent.
 - **Fix:** Ensure both `image.override` and `operator.image.override` are set in `cilium-values.yaml`.
+
