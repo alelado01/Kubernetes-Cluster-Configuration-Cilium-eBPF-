@@ -1,6 +1,6 @@
 ## Set up
 
-This document analyze the full installation procedure used in the TER project: a bare-metal two-node cluster (`master` as master, `worker` as worker) running K3s on openSUSE Leap 15.6, with Intel X710 10G NICs (`eth0` on master, `eth1`/`eth0` on worker) for the data plane and Broadcom management interfaces (`em2`) for SSH.
+This document analyzes the full installation procedure used in the TER project: a bare-metal two-node cluster (`master` as master, `worker` as worker) running K3s on openSUSE Leap 15.6, with Intel X710 10G NICs (`eth0` on master, `eth1`/`eth0` on worker) for the data plane and Broadcom management interfaces (`em2`) for SSH.
 
 ---
 
