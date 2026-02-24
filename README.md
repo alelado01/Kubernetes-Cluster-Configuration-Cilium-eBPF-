@@ -175,7 +175,7 @@ helm install cilium cilium/cilium \
 
 ###### Step 3 — Per-node device override via CiliumNodeConfig CRD
 
-Because `master` uses `eth0` and `worker` originally uses `eth1`, and because `master` also has a second Intel port `eth1` that is **not connected**, a global `--set devices=eth0,eth1` will crash the node that encounters the unconnected interface (see [Error E6](#errors-and-solutions)). The solution is to use the `CiliumNodeConfig` CRD to apply per-node device settings.
+Because `master` uses `eth0` and `worker` originally uses `eth1`, and if `master` also has a second Intel port `eth1` that is **not connected**, a global `--set devices=eth0,eth1` will crash the node that encounters the unconnected interface (see [Error E6](#errors-and-solutions)). The solution is to use the `CiliumNodeConfig` CRD to apply per-node device settings.
 
 Label the nodes:
 ```bash
