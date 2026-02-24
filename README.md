@@ -207,7 +207,7 @@ spec:
     matchLabels:
       hw-profile: worker-layout
   defaults:
-    devices: "eth0"   # interface renamed from eth1 during interface prep
+    devices: "eth0"
 ```
 
 Apply and restart the Cilium agents:
