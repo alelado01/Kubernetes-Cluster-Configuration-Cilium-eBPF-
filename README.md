@@ -171,7 +171,7 @@ helm install cilium cilium/cilium \
   --set operator.hostNetwork=true
 ```
 
-> **IPAM bootstrap catch-22 (Error E5):** If the Cilium operator is scheduled on the worker node, it cannot reach the master's API server via VXLAN because VXLAN itself is not yet up. `operator.nodeSelector` and `operator.hostNetwork=true` force the operator to the master and to use the physical management network, breaking the chicken-and-egg deadlock.
+> **IPAM bootstrap catch-22 (Error E5):** If the Cilium operator is scheduled on the worker node, it cannot reach the master's API server via VXLAN because VXLAN itself is not yet up. `operator.nodeSelector` and `operator.hostNetwork=true` force the operator to the master and to use the physical management network, breaking the deadlock.
 
 ###### Step 3 — Per-node device override via CiliumNodeConfig CRD
 
@@ -297,7 +297,7 @@ The following errors were encountered during the deployment of this cluster. Eac
 ---
 
 **E5 — IPAM operator deadlock (operator scheduled on worker node)**
-- **Cause:** The Cilium operator is scheduled on the worker node. It needs the VXLAN tunnel to reach the master's API server for IPAM. But the VXLAN tunnel cannot come up without the operator completing IPAM — a classic chicken-and-egg deadlock.
+- **Cause:** The Cilium operator is scheduled on the worker node. It needs the VXLAN tunnel to reach the master's API server for IPAM. But the VXLAN tunnel cannot come up without the operator completing IPAM.
 - **Symptom:** Cilium agents on both nodes stuck in `Init` indefinitely; no pods get IP addresses.
 - **Fix:**
   ```bash
