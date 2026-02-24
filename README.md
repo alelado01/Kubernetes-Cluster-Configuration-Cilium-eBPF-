@@ -433,7 +433,7 @@ The workflow has three phases:
 - SSH access to both nodes via their management IPs (`134.59.131.204` for master, `134.59.131.202` for worker)
 - K3s already installed and running (see [Standard Installation](#standard-installation))
 
-> **Critical — import before deploy:** Because `pullPolicy: Never` is used, the container runtime will **never** attempt to pull the image from the internet. If the image is not already imported on a node before the Cilium pod is scheduled there, the pod fails immediately with `ErrImageNeverPull`. Always run the import step on **all nodes** before applying Helm.
+> Import before deploy:** Because `pullPolicy: Never` is used, the container runtime will **never** attempt to pull the image from the internet. If the image is not already imported on a node before the Cilium pod is scheduled there, the pod fails immediately with `ErrImageNeverPull`. Always run the import step on **all nodes** before applying Helm.
 
 ---
 
